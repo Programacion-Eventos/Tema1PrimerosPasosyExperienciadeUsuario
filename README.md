@@ -1,6 +1,6 @@
 # Tema1 PrimerosPasosyExperienciadeUsuario (Eventos)
 
-Repositorio --> 
+Repositorio --> https://github.com/Programacion-Eventos/Tema1PrimerosPasosyExperienciadeUsuario
 
 # Proyecto de Cambio de Color de Fondo en Pantallas
 
@@ -46,3 +46,5 @@ Las contribuciones son bienvenidas. Por favor, abre un issue o un pull request p
 ## Licencia
 
 Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+
+## OJO --> Cuidado con el dispositivo que emula la app !!!!
