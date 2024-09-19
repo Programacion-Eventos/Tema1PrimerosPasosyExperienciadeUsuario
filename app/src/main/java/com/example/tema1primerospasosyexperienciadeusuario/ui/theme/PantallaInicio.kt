@@ -31,7 +31,7 @@ import androidx.navigation.compose.rememberNavController
 @Preview(showBackground = true)
 @Composable
 fun PreviewPantallaInicio() {
-    PantallaInicio(navController = rememberNavController())
+    PantallaInicio(navController = rememberNavController(), backgroundColor = Color.Gray)
 }
 
 
@@ -39,25 +39,23 @@ fun PreviewPantallaInicio() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PantallaInicio(navController: NavHostController) {
+fun PantallaInicio(navController: NavHostController, backgroundColor: Color) {
     val greeting by remember { mutableStateOf(getGreeting()) }
 
     Scaffold(
-        modifier = Modifier.background(Color.Gray),
-        topBar = { TopAppBar(title = { Text("Pantalla de Inicio" ,fontSize = 40.sp, fontWeight = FontWeight.Bold) }, colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Cyan)) }
-
-
+        topBar = { TopAppBar(title = { Text("Pantalla de Inicio", fontSize = 40.sp, fontWeight = FontWeight.Bold) }, colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Cyan)) }
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .padding(paddingValues)
                 .padding(16.dp)
+                .background(backgroundColor)
         ) {
             Text(
                 text = greeting,
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(bottom = 16.dp),
-                fontSize =30.sp,
+                fontSize = 30.sp,
                 fontStyle = FontStyle.Italic,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
@@ -67,7 +65,7 @@ fun PantallaInicio(navController: NavHostController) {
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("IR A PRINCIPAL",fontSize = 30.sp)
+                Text("IR A PRINCIPAL", fontSize = 30.sp)
             }
         }
     }
@@ -83,7 +81,7 @@ fun getGreeting(): AnnotatedString {
     }
     return buildAnnotatedString {
         append("¡¡Buenas ")
-        withStyle(style = SpanStyle(color = Color.Red)) {
+        withStyle(style = SpanStyle(color = Color.Yellow)) {
             append(greeting)
         }
         append(" Sr.Profe!!")
