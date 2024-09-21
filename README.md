@@ -4,7 +4,7 @@ Repositorio --> https://github.com/Programacion-Eventos/Tema1PrimerosPasosyExper
 
 # Proyecto de Cambio de Color de Fondo en Pantallas
 
-### **OJO IMPORTANTE** en caso de que el emulador usado para lanzar la aplicación funcione de forma inusual (como mostrar la "APP" bocaabajo/del revés) simplemente hacerle un "Cold Boot" a dicho emulador desde el Device Manager para restablecer el funcionamiento normal de la misma.
+### **OJO IMPORTANTE**, en caso de que el emulador usado para lanzar la aplicación funcione de forma inusual (como mostrar la "APP" bocaabajo/del revés) simplemente hacerle un "Cold Boot" a dicho emulador desde el Device Manager para restablecer el funcionamiento normal de la misma.
 
 Este proyecto es una aplicación de Android desarrollada en Kotlin que permite cambiar el color de fondo de varias pantallas desde una pantalla de configuración. La aplicación utiliza Jetpack Compose para la interfaz de usuario.
 
