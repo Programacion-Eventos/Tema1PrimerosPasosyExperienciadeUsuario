@@ -1,4 +1,3 @@
-// PantallaConfiguracionTest.kt
 package com.example.tema1primerospasosyexperienciadeusuario.ui.theme
 
 import androidx.compose.ui.graphics.Color
