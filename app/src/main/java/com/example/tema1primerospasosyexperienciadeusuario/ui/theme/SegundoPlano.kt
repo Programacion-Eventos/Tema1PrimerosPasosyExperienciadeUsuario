@@ -12,4 +12,12 @@ class SegundoPlano(
         super.onPreExecute()
         // Inicializar elementos de la UI si es necesario
     }
+
+    override fun doInBackground(vararg params: Void?): Void? {
+        for (i in 1..100) {
+            Thread.sleep(50) // Simular retraso de red
+            publishProgress(i)
+        }
+        return null
+    }
 }
