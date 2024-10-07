@@ -20,4 +20,9 @@ class SegundoPlano(
         }
         return null
     }
+
+    override fun onProgressUpdate(vararg values: Int?) {
+        super.onProgressUpdate(*values)
+        values[0]?.let { actualizarProgreso(it) }
+    }
 }
