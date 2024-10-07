@@ -25,4 +25,9 @@ class SegundoPlano(
         super.onProgressUpdate(*values)
         values[0]?.let { actualizarProgreso(it) }
     }
+
+    override fun onPostExecute(result: Void?) {
+        super.onPostExecute(result)
+        tareaFinalizada()
+    }
 }
