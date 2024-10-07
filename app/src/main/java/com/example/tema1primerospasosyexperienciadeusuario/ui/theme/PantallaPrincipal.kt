@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
+import com.example.tema1primerospasosyexperienciadeusuario.ui.theme.SegundoPlano
 
 
 
@@ -32,8 +33,10 @@ fun PreviewPantallaPrincipal() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PantallaPrincipal(navController: NavHostController, backgroundColor: Color) {
-    var name by remember { mutableStateOf(TextFieldValue("")) }
-    var savedName by remember { mutableStateOf("") }
+    var nombre by remember { mutableStateOf(TextFieldValue("")) }
+    var nombreGuardado by remember { mutableStateOf("") }
+    var progreso by remember { mutableStateOf(0) }
+    var tareaEnEjecucion by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = { TopAppBar(title = { Text("Pantalla Principal", fontSize = 42.sp, fontWeight = FontWeight.Bold) }, colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Cyan)) }
@@ -45,8 +48,8 @@ fun PantallaPrincipal(navController: NavHostController, backgroundColor: Color) 
                 .background(backgroundColor)
         ) {
             TextField(
-                value = name,
-                onValueChange = { name = it },
+                value = nombre,
+                onValueChange = { nombre = it },
                 label = { Text("Aquí nombre", fontWeight = FontWeight.Light) },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -55,15 +58,15 @@ fun PantallaPrincipal(navController: NavHostController, backgroundColor: Color) 
                     .border(2.dp, Color.Black)
             )
             Button(
-                onClick = { savedName = name.text },
+                onClick = { nombreGuardado = nombre.text },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Magenta),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Guarda Nombre", fontSize = 30.sp)
             }
-            if (savedName.isNotEmpty()) {
+            if (nombreGuardado.isNotEmpty()) {
                 Text(
-                    text = "Guardar Nombre: $savedName",
+                    text = "Guardar Nombre: $nombreGuardado",
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(top = 16.dp)
                 )
@@ -76,6 +79,27 @@ fun PantallaPrincipal(navController: NavHostController, backgroundColor: Color) 
                     .padding(top = 16.dp)
             ) {
                 Text("Ir Config.", fontSize = 30.sp)
+            }
+            Button(
+                onClick = {
+                    if (!tareaEnEjecucion) {
+                        tareaEnEjecucion = true
+                        SegundoPlano(
+                            actualizarProgreso = { progreso = it },
+                            tareaFinalizada = { tareaEnEjecucion = false }
+                        ).execute()
+                    }
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Green),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+            ) {
+                Text("Iniciar Tarea en Segundo Plano", fontSize = 30.sp)
+            }
+            if (tareaEnEjecucion) {
+                LinearProgressIndicator(progress = progreso / 100f, modifier = Modifier.fillMaxWidth().padding(top = 16.dp))
+                Text("Progreso: $progreso%", modifier = Modifier.padding(top = 8.dp))
             }
         }
     }
