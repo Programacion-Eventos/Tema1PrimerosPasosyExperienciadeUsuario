@@ -7,6 +7,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.navigation.compose.rememberNavController
+import com.example.tema1primerospasosyexperienciadeusuario.vista.PantallaPrincipal
 import org.junit.Rule
 import org.junit.Test
 
