@@ -9,39 +9,72 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.tema1primerospasosyexperienciadeusuario.model.PreferenceManager
+import com.example.tema1primerospasosyexperienciadeusuario.model.*
 import com.example.tema1primerospasosyexperienciadeusuario.vista.PantallaConfiguracion
 import com.example.tema1primerospasosyexperienciadeusuario.vista.PantallaInicio
 import com.example.tema1primerospasosyexperienciadeusuario.vista.PantallaPrincipal
+import java.io.IOException
 
 class MainActivity : ComponentActivity() {
     private lateinit var preferencesManager: PreferenceManager
+    private lateinit var sqliteHelper: SQLite
+    private lateinit var firebaseHelper: Firebase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preferencesManager = PreferenceManager(this)
+        sqliteHelper = SQLite(this)
+        firebaseHelper = Firebase()
+
+        // Example usage of database export/import to internal storage
+        try {
+            sqliteHelper.exportarBaseDatosAAlmacenamientoInterno(this)
+            sqliteHelper.importarBaseDatosDesdeAlmacenamientoInterno(this)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
         setContent {
-            MyApp(preferencesManager)
+            MyApp(
+                preferencesManager = preferencesManager,
+                sqliteHelper = sqliteHelper,
+                firebaseHelper = firebaseHelper
+            )
         }
     }
 }
 
 @Composable
-fun MyApp(preferencesManager: PreferenceManager) {
+fun MyApp(
+    preferencesManager: PreferenceManager,
+    sqliteHelper: SQLite,
+    firebaseHelper: Firebase
+) {
     val navController = rememberNavController()
-    var userName by remember { mutableStateOf(preferencesManager.getUserName()) }
+    var userName by remember { mutableStateOf(preferencesManager.userName) }
     var backgroundColor by remember { mutableStateOf(Color(preferencesManager.getBackgroundColor(userName))) }
 
     NavHost(navController = navController, startDestination = "pantalla_inicio") {
         composable("pantalla_inicio") { PantallaInicio(navController, backgroundColor) }
-        composable("pantalla_principal") { PantallaPrincipal(navController, backgroundColor, preferencesManager) { newName, newColor ->
-            userName = newName
-            backgroundColor = newColor
-            preferencesManager.saveUserNameAndColor(newName, newColor.toArgb())
-        }}
-        composable("pantalla_configuracion") { PantallaConfiguracion(navController, backgroundColor) { newColor ->
-            backgroundColor = newColor
-            preferencesManager.saveUserNameAndColor(userName, newColor.toArgb())
-        }}
+        composable("pantalla_principal") {
+            PantallaPrincipal(
+                navController = navController,
+                backgroundColor = backgroundColor,
+                preferencesManager = preferencesManager,
+                onSave = { newName: String, newColor: Color ->
+                    userName = newName
+                    backgroundColor = newColor
+                    preferencesManager.saveUserNameAndColor(newName, newColor.toArgb())
+                },
+                sqliteHelper = sqliteHelper,
+                firebaseHelper = firebaseHelper
+            )
+        }
+        composable("pantalla_configuracion") {
+            PantallaConfiguracion(navController, backgroundColor) { newColor: Color ->
+                backgroundColor = newColor
+                preferencesManager.saveUserNameAndColor(userName, newColor.toArgb())
+            }
+        }
     }
 }

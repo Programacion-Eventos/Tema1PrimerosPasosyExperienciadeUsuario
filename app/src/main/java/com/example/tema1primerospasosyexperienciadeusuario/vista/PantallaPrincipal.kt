@@ -10,25 +10,26 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.navigation.NavHostController
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
-import com.example.tema1primerospasosyexperienciadeusuario.model.SegundoPlano
+import com.example.tema1primerospasosyexperienciadeusuario.model.Firebase
 import com.example.tema1primerospasosyexperienciadeusuario.model.PreferenceManager
+import com.example.tema1primerospasosyexperienciadeusuario.model.SQLite
+import com.example.tema1primerospasosyexperienciadeusuario.model.SegundoPlano
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewPantallaPrincipal() {
-    PantallaPrincipal(navController = rememberNavController(), backgroundColor = Color.Gray, preferencesManager = PreferenceManager(LocalContext.current)) { _, _ -> }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PantallaPrincipal(navController: NavHostController, backgroundColor: Color, preferencesManager: PreferenceManager, onSave: (String, Color) -> Unit) {
+fun PantallaPrincipal(
+    navController: NavHostController,
+    backgroundColor: Color,
+    preferencesManager: PreferenceManager,
+    onSave: (String, Color) -> Unit,
+    sqliteHelper: SQLite,
+    firebaseHelper: Firebase
+) {
     var nombre by remember { mutableStateOf(TextFieldValue(preferencesManager.getUserName() ?: "")) }
     var nombreGuardado by remember { mutableStateOf(preferencesManager.getUserName() ?: "") }
     var progreso by remember { mutableStateOf(0) }
@@ -57,6 +58,10 @@ fun PantallaPrincipal(navController: NavHostController, backgroundColor: Color, 
                 onClick = {
                     nombreGuardado = nombre.text
                     onSave(nombreGuardado, backgroundColor)
+                    // Guardar en SQLite
+                    sqliteHelper.insertarNombre(nombreGuardado)
+                    // Guardar en Firebase
+                    firebaseHelper.saveNombre(nombreGuardado)
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Magenta),
                 modifier = Modifier.fillMaxWidth()
