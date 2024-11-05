@@ -1,0 +1,85 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "com.example.tema1primerospasosyexperienciadeusuario.model" as model {
+    class Firebase {
+        +saveNombre(nombre: String): void
+    }
+
+    class PreferenceManager {
+        -context: Context
+        +saveUserNameAndColor(userName: String, color: Int): void
+        +getUserName(): String?
+        +getBackgroundColor(userName: String): Int
+    }
+
+    class SegundoPlano {
+        -actualizarProgreso: (Int) -> Unit
+        -tareaFinalizada: () -> Unit
+        +execute(): void
+    }
+
+    class Logica {
+        +obtenerSaludo(): AnnotatedString
+    }
+
+    class SQLite {
+        -context: Context
+        +insertarNombre(nombre: String): void
+        +exportarBaseDatosAAlmacenamientoInterno(context: Context): void
+        +importarBaseDatosDesdeAlmacenamientoInterno(context: Context): void
+    }
+}
+
+package "com.example.tema1primerospasosyexperienciadeusuario.vista" as vista {
+    class PantallaPrincipal {
+        +PantallaPrincipal(navController: NavHostController, backgroundColor: Color, preferencesManager: PreferenceManager, onSave: (String, Color) -> Unit, sqliteHelper: SQLite, firebaseHelper: Firebase)
+    }
+
+    class PantallaInicio {
+        +PantallaInicio(navController: NavHostController, backgroundColor: Color)
+    }
+
+    class PantallaConfiguracion {
+        +PantallaConfiguracion(navController: NavHostController, backgroundColor: Color, onColorChange: (Color) -> Unit)
+    }
+}
+
+package "com.example.tema1primerospasosyexperienciadeusuario.util" as util {
+    class AlmacenamientoInterno {
+        +guardarArchivo(context: Context, nombreArchivo: String, contenido: String): void
+        +leerArchivo(context: Context, nombreArchivo: String): String
+    }
+
+    class AlmacenamientoExterno {
+        +guardarArchivo(context: Context, nombreArchivo: String, contenido: String): void
+        +leerArchivo(context: Context, nombreArchivo: String): String
+    }
+}
+
+class MainActivity {
+    -preferencesManager: PreferenceManager
+    -sqliteHelper: SQLite
+    -firebaseHelper: Firebase
+    +onCreate(savedInstanceState: Bundle): void
+}
+
+class MyApplication {
+    +onCreate(): void
+}
+
+model.PreferenceManager --> util.AlmacenamientoInterno : usa
+model.SQLite --> util.AlmacenamientoInterno : usa
+vista.PantallaPrincipal --> model.PreferenceManager : usa
+vista.PantallaPrincipal --> model.SQLite : usa
+vista.PantallaPrincipal --> model.Firebase : usa
+vista.PantallaInicio --> model.Logica : usa
+MainActivity --> model.PreferenceManager : tiene
+MainActivity --> model.SQLite : tiene
+MainActivity --> model.Firebase : tiene
+MyApplication --> model.Firebase : inicializa
+MainActivity *- vista.PantallaPrincipal : muestra
+MainActivity *- vista.PantallaInicio : muestra
+MainActivity *- vista.PantallaConfiguracion : muestra
+
+@enduml
