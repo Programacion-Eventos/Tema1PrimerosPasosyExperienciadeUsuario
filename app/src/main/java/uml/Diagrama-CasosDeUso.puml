@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+
+actor Usuario as User
+
+rectangle "Aplicación de Usuario" {
+    usecase "Iniciar sesión(En progreso)" as UC1
+    usecase "Guardar nombre" as UC2
+    usecase "Cambiar color de fondo" as UC3
+    usecase "Ver progreso de tarea" as UC4
+    usecase "Navegar a configuración" as UC5
+    usecase "Navegar a pantalla principal" as UC6
+    usecase "Navegar a pantalla de inicio" as UC7
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+User --> UC7
+
+@enduml
