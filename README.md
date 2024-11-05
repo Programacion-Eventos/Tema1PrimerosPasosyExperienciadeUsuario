@@ -4,7 +4,7 @@ Repositorio -->
 
 # Proyecto de Cambio de Color de Fondo en Pantallas [MEJORADO]
 
-## Atención: Hemos dado un buelco de 180º a la App (puesto que la version base dejaba mucho que desear) --> Hemos migrado todas las clases que estaban metidas en el ui.theme a sus respectivos paquetes en base a responsabilidades (Pantallas a la vista y segundoPlano al modelo) además de añadir multiples clases orientadas a el uso de FireBase, SQlite(con almacenamiento Interno), SharedPreference y otras resultantes de la separación de logica-pantalla para que sea mas eficiente (poco cambio a nivel frontal y mucho por detrás).
+#### Atención: Hemos dado un buelco de 180º a la App (puesto que la version base dejaba mucho que desear) --> Hemos migrado todas las clases que estaban metidas en el ui.theme a sus respectivos paquetes en base a responsabilidades (Pantallas a la vista y segundoPlano al modelo) además de añadir multiples clases orientadas a el uso de FireBase, SQlite(con almacenamiento Interno), SharedPreference y otras resultantes de la separación de logica-pantalla para que sea mas eficiente (poco cambio a nivel frontal y mucho por detrás).
 
 ### **OJO IMPORTANTE**, en caso de que el emulador usado para lanzar la aplicación funcione de forma inusual (como mostrar la "APP" bocaabajo/del revés) simplemente hacerle un "Cold Boot" a dicho emulador desde el Device Manager para restablecer el funcionamiento normal de la misma.
 
