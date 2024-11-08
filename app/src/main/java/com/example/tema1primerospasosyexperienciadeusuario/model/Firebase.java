@@ -16,4 +16,8 @@ public class Firebase {
             database.child("nombres").child(key).setValue(nombre);
         }
     }
+
+    public void borrarTodosLosNombres() {
+        database.child("nombres").removeValue();
+    }
 }

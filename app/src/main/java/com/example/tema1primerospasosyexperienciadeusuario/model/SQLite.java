@@ -40,6 +40,11 @@ public class SQLite extends SQLiteOpenHelper {
         db.execSQL(insertar);
     }
 
+    public void borrarTodosLosNombres() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLA_NOMBRES);
+    }
+
     // Exportar la base de datos a almacenamiento interno
     public void exportarBaseDatosAAlmacenamientoInterno(Context contexto) throws IOException {
         File archivoBaseDatos = contexto.getDatabasePath(NOMBRE_BASE_DATOS);

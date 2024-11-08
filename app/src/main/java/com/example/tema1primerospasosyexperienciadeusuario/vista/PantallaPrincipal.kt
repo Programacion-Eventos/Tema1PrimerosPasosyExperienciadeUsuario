@@ -19,7 +19,6 @@ import com.example.tema1primerospasosyexperienciadeusuario.model.PreferenceManag
 import com.example.tema1primerospasosyexperienciadeusuario.model.SQLite
 import com.example.tema1primerospasosyexperienciadeusuario.model.SegundoPlano
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PantallaPrincipal(
@@ -104,6 +103,18 @@ fun PantallaPrincipal(
             if (tareaEnEjecucion) {
                 LinearProgressIndicator(progress = progreso / 100f, modifier = Modifier.fillMaxWidth().padding(top = 16.dp))
                 Text("Progreso: $progreso%", modifier = Modifier.padding(top = 8.dp))
+            }
+            Button(
+                onClick = {
+                    sqliteHelper.borrarTodosLosNombres()
+                    firebaseHelper.borrarTodosLosNombres()
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+            ) {
+                Text("Borrar Todos los Nombres", fontSize = 30.sp)
             }
         }
     }
