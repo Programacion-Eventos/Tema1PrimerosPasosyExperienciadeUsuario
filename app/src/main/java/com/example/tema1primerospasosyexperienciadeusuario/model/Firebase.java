@@ -2,6 +2,7 @@ package com.example.tema1primerospasosyexperienciadeusuario.model;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Firebase {
     private final DatabaseReference database;
@@ -19,5 +20,9 @@ public class Firebase {
 
     public void borrarTodosLosNombres() {
         database.child("nombres").removeValue();
+    }
+
+    public void getNombres(ValueEventListener listener) {
+        database.child("nombres").addValueEventListener(listener);
     }
 }
