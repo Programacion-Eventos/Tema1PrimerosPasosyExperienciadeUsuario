@@ -16,17 +16,11 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
 import com.example.tema1primerospasosyexperienciadeusuario.model.Logica
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewPantallaInicio() {
-    PantallaInicio(navController = rememberNavController(), backgroundColor = Color.Gray)
-}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,6 +51,13 @@ fun PantallaInicio(navController: NavHostController, backgroundColor: Color) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("IR A PRINCIPAL", fontSize = 30.sp)
+            }
+            Button(
+                onClick = { navController.navigate("pantalla_ubicacion") },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Green),
+                modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
+            ) {
+                Text("IR A UBICACION", fontSize = 30.sp)
             }
         }
     }
