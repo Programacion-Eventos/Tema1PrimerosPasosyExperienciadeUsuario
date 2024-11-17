@@ -39,7 +39,7 @@ fun CoordenadasSelector(
                 y = newY.toInt()
                 onUbicacionChange(Pair(x, y))
             },
-            valueRange = -4f..4f,
+            valueRange = -4f..4f, // Correct the range
             modifier = Modifier.padding(16.dp)
         )
     }

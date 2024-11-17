@@ -7,6 +7,8 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun Movimiento(
@@ -24,6 +26,8 @@ fun Movimiento(
     var lastX by remember { mutableStateOf(0f) }
     var lastY by remember { mutableStateOf(0f) }
     var currentLocation by remember { mutableStateOf(ubicacionActual) }
+    var previousDistance by remember { mutableStateOf(calculateDistance(ubicacionActual, ubicacionObjetivo)) }
+    val coroutineScope = rememberCoroutineScope()
 
     val sensorEventListener = remember {
         object : SensorEventListener {
@@ -62,8 +66,21 @@ fun Movimiento(
                         lastX = currentX
                         lastY = currentY
 
-                        val esDireccionCorrecta = comprobarDireccion(currentLocation, ubicacionObjetivo)
-                        onCambioDireccion(esDireccionCorrecta)
+                        val newDistance = calculateDistance(currentLocation, ubicacionObjetivo)
+                        if (newDistance < previousDistance) {
+                            coroutineScope.launch {
+                                onCambioDireccion(true)
+                                delay(1000)
+                                onCambioDireccion(null)
+                            }
+                        } else if (newDistance > previousDistance) {
+                            coroutineScope.launch {
+                                onCambioDireccion(false)
+                                delay(1000)
+                                onCambioDireccion(null)
+                            }
+                        }
+                        previousDistance = newDistance
                     }
                 }
             }
@@ -81,16 +98,8 @@ fun Movimiento(
     }
 }
 
-fun comprobarDireccion(ubicacionActual: Pair<Int, Int>, ubicacionObjetivo: Pair<Int, Int>): Boolean? {
+fun calculateDistance(ubicacionActual: Pair<Int, Int>, ubicacionObjetivo: Pair<Int, Int>): Double {
     val (xActual, yActual) = ubicacionActual
     val (xObjetivo, yObjetivo) = ubicacionObjetivo
-
-    val deltaX = xObjetivo - xActual
-    val deltaY = yObjetivo - yActual
-
-    return when {
-        deltaX == 0 && deltaY == 0 -> null
-        deltaX >= 0 && deltaY >= 0 -> true
-        else -> false
-    }
+    return Math.sqrt(Math.pow((xObjetivo - xActual).toDouble(), 2.0) + Math.pow((yObjetivo - yActual).toDouble(), 2.0))
 }

@@ -17,7 +17,7 @@ fun SelectorDeUbicacion(
     modifier: Modifier = Modifier
 ) {
     val ubicaciones = (-7..7).flatMap { x ->
-        (-4..4).map { y ->
+        (4 downTo -4).map { y ->
             Pair(x, y)
         }
     }
@@ -26,7 +26,7 @@ fun SelectorDeUbicacion(
             .fillMaxSize()
             .background(Color.Gray)
     ) {
-        for (y in -4..4) {
+        for (y in 4 downTo -4) {
             Row(modifier = Modifier.weight(1f)) {
                 for (x in -7..7) {
                     val ubicacion = Pair(x, y)
