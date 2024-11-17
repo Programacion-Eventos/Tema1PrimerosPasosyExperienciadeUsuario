@@ -13,6 +13,7 @@ import com.example.tema1primerospasosyexperienciadeusuario.model.*
 import com.example.tema1primerospasosyexperienciadeusuario.vista.PantallaConfiguracion
 import com.example.tema1primerospasosyexperienciadeusuario.vista.PantallaInicio
 import com.example.tema1primerospasosyexperienciadeusuario.vista.PantallaPrincipal
+import com.example.tema1primerospasosyexperienciadeusuario.vista.PantallaUbicacion
 import java.io.IOException
 
 class MainActivity : ComponentActivity() {
@@ -76,5 +77,6 @@ fun MyApp(
                 preferencesManager.saveUserNameAndColor(userName, newColor.toArgb())
             }
         }
+        composable("pantalla_ubicacion") { PantallaUbicacion(navController) }
     }
 }
