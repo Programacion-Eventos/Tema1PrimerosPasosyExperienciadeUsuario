@@ -10,17 +10,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 
+
 @Composable
-fun SelectorDeUbicacion(
+fun SelectorDeUbicacionUnificado(
     ubicacionActual: Pair<Int, Int>,
-    onUbicacionSeleccionada: (Pair<Int, Int>) -> Unit,
+    ubicacionObjetivo: Pair<Int, Int>,
+    turnoSeleccion: Boolean,
+    onUbicacionSeleccionada: (Pair<Int, Int>, Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val ubicaciones = (-7..7).flatMap { x ->
-        (4 downTo -4).map { y ->
-            Pair(x, y)
-        }
-    }
+    val ubicaciones = (-7..7).flatMap { x -> (4 downTo -4).map { y -> Pair(x, y) } }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -34,8 +33,14 @@ fun SelectorDeUbicacion(
                         modifier = Modifier
                             .weight(1f)
                             .aspectRatio(1f)
-                            .background(if (ubicacionActual == ubicacion) Color.Blue else Color.White)
-                            .clickable { onUbicacionSeleccionada(ubicacion) }
+                            .background(
+                                when {
+                                    ubicacion == ubicacionActual -> Color.Blue
+                                    ubicacion == ubicacionObjetivo -> Color.Red
+                                    else -> Color.White
+                                }
+                            )
+                            .clickable { onUbicacionSeleccionada(ubicacion, turnoSeleccion) }
                     ) {
                         Canvas(modifier = Modifier.fillMaxSize()) {
                             drawRect(

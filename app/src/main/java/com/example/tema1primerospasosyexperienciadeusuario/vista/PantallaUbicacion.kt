@@ -8,15 +8,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+
 
 @Composable
-fun PantallaUbicacion(navController: NavHostController) {
+fun PantallaUbicacion() {
     var ubicacionActual by remember { mutableStateOf(Pair(0, 0)) }
-    var ubicacionObjetivo by remember { mutableStateOf(Pair(0, 0)) }
+    var ubicacionObjetivo by remember { mutableStateOf(Pair(3, 2)) } // Ejemplo de objetivo inicial
     var colorFondo by remember { mutableStateOf(Color.White) }
-    var isMoving by remember { mutableStateOf(false) }
-    var azimut by remember { mutableStateOf(0f) }
 
     Column(
         modifier = Modifier
@@ -24,74 +22,32 @@ fun PantallaUbicacion(navController: NavHostController) {
             .background(colorFondo)
             .padding(16.dp)
     ) {
-        Text("Selecciona la ubicación actual:", fontSize = 20.sp)
-        CoordenadasSelector(
+        ControlPorBarras(
             ubicacionActual = ubicacionActual,
-            onUbicacionChange = { nuevaUbicacion ->
+            onUbicacionCambiada = { nuevaUbicacion ->
                 ubicacionActual = nuevaUbicacion
             }
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-        ) {
-            SelectorDeUbicacion(
-                ubicacionActual = ubicacionActual,
-                onUbicacionSeleccionada = { ubicacionSeleccionada ->
-                    ubicacionActual = ubicacionSeleccionada
-                },
-                modifier = Modifier
-                    .weight(1f)
-                    .height(200.dp)
-            )
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            SelectorDeUbicacion(
-                ubicacionActual = ubicacionObjetivo,
-                onUbicacionSeleccionada = { ubicacionSeleccionada ->
-                    ubicacionObjetivo = ubicacionSeleccionada
-                },
-                modifier = Modifier
-                    .weight(1f)
-                    .height(200.dp)
-            )
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
         Movimiento(
             ubicacionActual = ubicacionActual,
             ubicacionObjetivo = ubicacionObjetivo,
-            onCambioDireccion = { esDireccionCorrecta ->
-                colorFondo = when {
-                    esDireccionCorrecta == null -> Color.White
-                    esDireccionCorrecta -> Color.Green
-                    else -> Color.Red
+            onCambioDireccion = { direccion ->
+                colorFondo = when (direccion) {
+                    true -> Color.Green
+                    false -> Color.Red
+                    else -> Color.White
                 }
-            },
-            onMovementChange = { moving, newLocation ->
-                isMoving = moving
-                if (moving) {
-                    ubicacionActual = newLocation
-                }
-            },
-            onAzimutChange = { newAzimut ->
-                azimut = newAzimut
             }
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text("Posición actual: (${ubicacionActual.first}, ${ubicacionActual.second})", fontSize = 20.sp)
-        Text("Posición deseada: (${ubicacionObjetivo.first}, ${ubicacionObjetivo.second})", fontSize = 20.sp)
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        BrújulaVisual(azimut = azimut)
+        Text(
+            text = "Ubicación actual: ${ubicacionActual.first}, ${ubicacionActual.second}",
+            fontSize = 16.sp
+        )
+        Text(
+            text = "Ubicación objetivo: ${ubicacionObjetivo.first}, ${ubicacionObjetivo.second}",
+            fontSize = 16.sp
+        )
     }
 }

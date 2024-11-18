@@ -77,6 +77,6 @@ fun MyApp(
                 preferencesManager.saveUserNameAndColor(userName, newColor.toArgb())
             }
         }
-        composable("pantalla_ubicacion") { PantallaUbicacion(navController) }
+        composable("pantalla_ubicacion") { PantallaUbicacion() }
     }
 }
