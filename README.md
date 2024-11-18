@@ -41,6 +41,26 @@ El paquete `vista` define las pantallas de la interfaz de usuario de la aplicaci
 
 3. **`PantallaConfiguracion`**: Permite al usuario seleccionar un color de fondo para personalizar la interfaz. Los cambios de color se guardan en `SharedPreferences` y se aplican en toda la app. También incluye navegación para volver a la `PantallaInicio`.
 
+
+
+## Nueva Sección: Control de Ubicación (dentro de `vista`)
+
+### Paquete `vista` (Vista)
+
+El paquete `vista` ahora incluye nuevas pantallas y componentes para el control de ubicación:
+
+1. **`ControlPorBarras`**: Un componente que permite controlar la ubicación actual mediante barras deslizantes para los ejes X e Y.
+
+2. **`Movimiento`**: Un componente que calcula la distancia entre la ubicación actual y la ubicación objetivo, y cambia el color de fondo según si el usuario se está acercando o alejando del objetivo.
+
+3. **`PantallaUbicacion`**: Una pantalla que muestra la ubicación actual y la ubicación objetivo, permite cambiar estas ubicaciones mediante barras deslizantes y un selector de ubicación, y muestra una brújula visual no funcional.
+
+4. **`SelectorDeUbicacionUnificado`**: Un componente que muestra una cuadrícula de ubicaciones seleccionables, permitiendo al usuario seleccionar una ubicación para la ubicación actual o la ubicación objetivo.
+
+5. **`BrújulaVisualNoFuncional`**: Un componente que muestra una brújula visual con una aguja giratoria, puramente para efectos visuales.
+
+Estas nuevas funcionalidades permiten al usuario interactuar con la aplicación de una manera más dinámica y visual, proporcionando una experiencia de usuario enriquecida.
+
 ---
 
 ## Paquete `util` (Utilidades)
