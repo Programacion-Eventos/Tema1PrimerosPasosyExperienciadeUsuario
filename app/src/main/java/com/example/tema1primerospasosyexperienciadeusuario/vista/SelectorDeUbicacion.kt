@@ -19,10 +19,8 @@ fun SelectorDeUbicacionUnificado(
     onUbicacionSeleccionada: (Pair<Int, Int>, Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val ubicaciones = (-7..7).flatMap { x -> (4 downTo -4).map { y -> Pair(x, y) } }
     Column(
         modifier = modifier
-            .fillMaxSize()
             .background(Color.Gray)
     ) {
         for (y in 4 downTo -4) {
