@@ -16,6 +16,7 @@ import com.example.tema1primerospasosyexperienciadeusuario.vista.PantallaPrincip
 import com.example.tema1primerospasosyexperienciadeusuario.vista.PantallaUbicacion
 import java.io.IOException
 
+
 class MainActivity : ComponentActivity() {
     private lateinit var preferencesManager: PreferenceManager
     private lateinit var sqliteHelper: SQLite
@@ -77,6 +78,6 @@ fun MyApp(
                 preferencesManager.saveUserNameAndColor(userName, newColor.toArgb())
             }
         }
-        composable("pantalla_ubicacion") { PantallaUbicacion() }
+        composable("pantalla_ubicacion") { PantallaUbicacion(navController) }
     }
 }
