@@ -43,6 +43,26 @@ package "com.example.tema1primerospasosyexperienciadeusuario.vista" as vista {
     class PantallaConfiguracion {
         +PantallaConfiguracion(navController: NavHostController, backgroundColor: Color, onColorChange: (Color) -> Unit)
     }
+
+    class ControlPorBarras {
+        +ControlPorBarras(ubicacionActual: Pair<Int, Int>, onUbicacionCambiada: (Pair<Int, Int>) -> Unit, modifier: Modifier)
+    }
+
+    class Movimiento {
+        +Movimiento(ubicacionActual: Pair<Int, Int>, ubicacionObjetivo: Pair<Int, Int>, onCambioDireccion: (Boolean?) -> Unit)
+    }
+
+    class PantallaUbicacion {
+        +PantallaUbicacion(navController: NavController)
+    }
+
+    class SelectorDeUbicacionUnificado {
+        +SelectorDeUbicacionUnificado(ubicacionActual: Pair<Int, Int>, ubicacionObjetivo: Pair<Int, Int>, turnoSeleccion: Boolean, onUbicacionSeleccionada: (Pair<Int, Int>, Boolean) -> Unit, modifier: Modifier)
+    }
+
+    class BrújulaVisualNoFuncional {
+        +BrújulaVisualNoFuncional(modifier: Modifier)
+    }
 }
 
 package "com.example.tema1primerospasosyexperienciadeusuario.util" as util {
@@ -81,5 +101,6 @@ MyApplication --> model.Firebase : inicializa
 MainActivity *- vista.PantallaPrincipal : muestra
 MainActivity *- vista.PantallaInicio : muestra
 MainActivity *- vista.PantallaConfiguracion : muestra
+MainActivity *- vista.PantallaUbicacion : muestra
 
 @enduml
