@@ -2,7 +2,9 @@ package com.example.tema1primerospasosyexperienciadeusuario.vista
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -19,13 +21,14 @@ import androidx.navigation.NavHostController
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tema1primerospasosyexperienciadeusuario.model.Logica
-
-
+import com.example.tema1primerospasosyexperienciadeusuario.model.Firebase
+import com.example.tema1primerospasosyexperienciadeusuario.widgetAdaptado.WidgetNombres
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PantallaInicio(navController: NavHostController, backgroundColor: Color) {
     val greeting: AnnotatedString by remember { mutableStateOf(Logica.obtenerSaludo()) }
+    val firebaseHelper = Firebase()
 
     Scaffold(
         topBar = { TopAppBar(title = { Text("Pantalla de Inicio", fontSize = 40.sp, fontWeight = FontWeight.Bold) }, colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Cyan)) }
@@ -59,6 +62,8 @@ fun PantallaInicio(navController: NavHostController, backgroundColor: Color) {
             ) {
                 Text("IR A UBICACION", fontSize = 30.sp)
             }
+            Spacer(modifier = Modifier.height(16.dp))
+            WidgetNombres(firebaseHelper = firebaseHelper)
         }
     }
 }
