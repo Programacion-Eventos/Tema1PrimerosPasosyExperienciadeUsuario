@@ -63,6 +63,14 @@ Estas nuevas funcionalidades permiten al usuario interactuar con la aplicación 
 
 ---
 
+### Paquete `WidgetAdaptado` (Widgets)
+
+1. **`WidgetNombres`**: El widget `WidgetNombres` se encuentra en el archivo `WidgetNombres.kt` dentro del paquete `widgetAdaptado`. Recupera los nombres desde Firebase y los muestra en formato de lista. El widget se expande para mostrar los nombres cuando se hace clic en él.
+
+Este widget se utiliza en la `PantallaInicio` para proporcionar una representación visual de los nombres almacenados en Firebase.
+
+---
+
 ## Paquete `util` (Utilidades)
 
 El paquete `util` proporciona clases para la lectura y escritura de archivos en diferentes tipos de almacenamiento.
