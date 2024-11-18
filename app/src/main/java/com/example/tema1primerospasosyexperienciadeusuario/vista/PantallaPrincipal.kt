@@ -21,9 +21,8 @@ import com.example.tema1primerospasosyexperienciadeusuario.model.Firebase
 import com.example.tema1primerospasosyexperienciadeusuario.model.PreferenceManager
 import com.example.tema1primerospasosyexperienciadeusuario.model.SQLite
 import com.example.tema1primerospasosyexperienciadeusuario.model.SegundoPlano
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,7 +74,6 @@ fun PantallaPrincipal(
                 }
             )
             DeleteButton(sqliteHelper = sqliteHelper, firebaseHelper = firebaseHelper)
-            NombresPanel(firebaseHelper = firebaseHelper)
         }
     }
 }
@@ -177,45 +175,3 @@ fun DeleteButton(sqliteHelper: SQLite, firebaseHelper: Firebase) {
     }
 }
 
-@Composable
-fun NombresPanel(firebaseHelper: Firebase) {
-    var nombres by remember { mutableStateOf(listOf<String>()) }
-    var isExpanded by remember { mutableStateOf(false) }
-
-    LaunchedEffect(Unit) {
-        firebaseHelper.getNombres(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val nombresList = snapshot.children.mapNotNull { it.getValue(String::class.java) }
-                nombres = nombresList
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Handle error
-            }
-        })
-    }
-
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text(
-            text = "Nombres",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { isExpanded = !isExpanded }
-                .padding(bottom = 8.dp)
-        )
-        AnimatedVisibility(visible = isExpanded) {
-            Column {
-                nombres.forEach { nombre ->
-                    Text(
-                        text = "- $nombre",
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 4.dp)
-                    )
-                }
-            }
-        }
-    }
-}
